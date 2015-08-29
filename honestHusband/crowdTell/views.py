@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
-from django.views.generic import CreateView, DetailView, FormView
+from django.views.generic import CreateView, DetailView
 from registration.backends.simple.views import RegistrationView
 from .forms import *
 from .models import *
@@ -71,7 +71,6 @@ class AnswerCreateView(CreateView):
         return form
 
 
-
 def landing(request):
     return render(request, 'crowdTell/landing.html', {})
 
@@ -84,7 +83,6 @@ def submit_vote_result(request, *args, **kwargs):
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
         return reverse('crowdTell:create_person',)
-
 
 
 def answer_random_question(request):
