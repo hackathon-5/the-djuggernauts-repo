@@ -20,6 +20,7 @@ class PictureCreateView(CreateView):
         person = get_object_or_404(Person, user__id=self.request.user.id)
         form = super(PictureCreateView, self).get_form(form_class)
         form.instance.person = person
+        form.label = ''
         return form
 
 

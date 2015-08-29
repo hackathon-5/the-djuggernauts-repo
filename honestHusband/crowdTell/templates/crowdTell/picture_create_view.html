@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
 
+{% block extra_styles %}
+
+{% endblock extra_styles %}
+
 {% block content %}
-<form action="." method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
+
+<div class="site-wrapper-inner">
+
+    <div class="cover-container">
+
+        <div class="inner cover">
+            <h1 class="cover-heading">Upload your image.</h1>
+
+            <form action="." method="post" enctype="multipart/form-data" class="lead">
+                {% csrf_token %}
+                {{ form }}
+                <p class="lead">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg"/>
+                </p>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock content %}
