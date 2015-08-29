@@ -13,7 +13,7 @@ class AnswerInlineAdmin(admin.TabularInline):
 
 
 class PictureQuestionAdmin(admin.ModelAdmin):
-    pass
+    inlines = [AnswerInlineAdmin]
 
 
 admin.site.register(Person, PersonAdmin)
