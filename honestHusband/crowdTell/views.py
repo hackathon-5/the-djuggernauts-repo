@@ -32,6 +32,12 @@ class PersonDetailView(DetailView):
     context_object_name = 'person'
     template_name = 'crowdTell/person_detail_view.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(PersonDetailView, self).get_context_data(**kwargs)
+        user_person = get_object_or_404(Person, user__id=self.request.user.id)
+        context['is_friend'] = (self.get_object() in user_person.friends.all()) or (user_person.id == self.get_object().id)
+        return context
+
 
 def bootstrapped_person_view(request):
     person = get_object_or_404(Person, user__id=request.user.id)
@@ -89,3 +95,13 @@ def answer_random_question(request):
     number_of_questions = PictureQuestion.objects.all().count()
     question_id = randrange(1, number_of_questions + 1)
     return HttpResponseRedirect(reverse('crowdTell:answer_question', args=(question_id,)))
+
+
+def add_friend(request):
+    friend_id = request.GET['friend_id']
+    person = get_object_or_404(Person, user__id=request.user.id)
+    potential_friend = get_object_or_404(Person, id=friend_id)
+    person.friends.add(potential_friend)
+    person.save()
+
+    return HttpResponseRedirect(reverse('crowdTell:person_detail', args=(friend_id,)))

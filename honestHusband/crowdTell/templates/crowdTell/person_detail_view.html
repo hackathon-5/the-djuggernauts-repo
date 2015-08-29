@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load thumbnail %}
+{% block extra_scripts %}
+    <script>
+    function addFriend() {
+        location.replace("{% url 'crowdTell:add_friend' %}?friend_id={{person.id}}");
+    };
+    </script>
+{% endblock extra_scripts %}
+
 {% block content %}
-        <h1>{{person.first_name}} {{person.last_name}}'s profile</h1>
-        {% for picture_question in person.picture_questions %}
-        <div class="well">
-            <h2>{{picture_question.title}}</h2>
-                <img src="{{ picture_question.image.url }}" width="300" height="300">
-            <h4>{{picture_question.text}}</h4>
-        </div>
-        {% endfor %}
+    <h1>{{person.first_name}} {{person.last_name}}'s profile</h1>
+        {% if not is_friend %}
+            <button id="addFriend" onclick="addFriend();" class="btn btn-success">Add Friend</button>
+        {% endif %}
+    {% for picture_question in person.picture_questions %}
+    <div class="well">
+        <h2>{{picture_question.title}}</h2>
+            <img src="{{ picture_question.image.url }}" width="300" height="300">
+        <h4>{{picture_question.text}}</h4>
+    </div>
+    {% endfor %}
+
 {% endblock content %}
