@@ -6,24 +6,21 @@
 
 {% block content %}
 
-<div class="site-wrapper-inner">
+<h1 class="cover-heading">Upload your image.</h1>
 
-    <div class="cover-container">
-
-        <div class="inner cover">
-            <h1 class="cover-heading">Upload your image.</h1>
-
-            <form action="." method="post" class="lead" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form }}
-                <p class="lead">
-                    <input type="submit" value="Submit" class="btn btn-primary btn-lg"/>
-                </p>
-            </form>
+<div class="form-group">
+    <form action="." method="post" class="lead" enctype="multipart/form-data" role="form">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
         </div>
-
-    </div>
-
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-primary btn-lg"/>
+    </form>
 </div>
+
 
 {% endblock content %}
