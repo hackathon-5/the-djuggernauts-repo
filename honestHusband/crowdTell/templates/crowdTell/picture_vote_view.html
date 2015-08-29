@@ -3,7 +3,7 @@
 {% block content %}
     <form action="/vote-result/" method="post">
         <h1>{{ question.title }}</h1>
-        <img src="{{ question.Picture.image.url }}"/>
+        <img src="{{ question.picture.image.url }}"/>
         <button onclick="someFunc()">No</button><button onclick="someFunc()">Yes</button>
     </form>
 {% endblock content %}
