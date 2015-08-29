@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load crispy_forms_tags %}
 {% block content %}
     <script type="text/javascript">
         function submit_form(vote) {
@@ -13,9 +14,9 @@
         <p>
             <input type="hidden" id="vote_result" name="vote_result"/>
             {% csrf_token %}
-            {{ form }}
+            {{ form|crispy }}
         </p>
     </form>
-    <span class="glyphicon glyphicon-thumbs-down" onclick="submit_form(true)" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-thumbs-up" onclick="submit_form(true)" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-thumbs-down vote" onclick="submit_form(false)" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-thumbs-up vote" onclick="submit_form(true)" aria-hidden="true"></span>
 {% endblock content %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'registration',
+    'crispy_forms',
     'crowdTell'
 )
 

@@ -183,3 +183,13 @@ img {
     -moz-border-radius: 15px;
     border-radius: 15px;
 }
+
+span.vote {
+    font-size: 24pt;
+    cursor: pointer;
+    margin: 10px;
+}
+
+input[type=file] {
+    display: inline;
+}
