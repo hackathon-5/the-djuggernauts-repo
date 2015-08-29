@@ -8,7 +8,7 @@
         }
     </script>
     <h1>{{ picture_question.title }}</h1>
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        <img src="{{ picture_question.image.url }}" width="300" height="300">
     <form id="answer_form" action="." method="post">
         <p>
             <input type="hidden" id="vote_result" name="vote_result"/>

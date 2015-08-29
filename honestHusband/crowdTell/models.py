@@ -30,7 +30,7 @@ class PictureQuestion(models.Model):
 
     @property
     def get_total_votes(self):
-        return Answer.objects.filter(question__id=self.id).count()
+        return Answer.objects.filter(picture_question__id=self.id).count()
 
     @property
     def get_yes_pct(self):
