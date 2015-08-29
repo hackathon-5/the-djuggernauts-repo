@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.views.generic import CreateView, DetailView
+from registration.backends.simple.views import RegistrationView
 from .forms import *
 from .models import *
 
@@ -23,6 +24,20 @@ class PictureCreateView(CreateView):
         return form
 
 
+class PersonCreateView(CreateView):
+    model = Person
+    fields = ['first_name', 'last_name']
+    template_name = 'crowdTell/generic_form.html'
+
+    def get_form(self, form_class=None):
+        form = super(PersonCreateView, self).get_form()
+        form.instance.user = self.request.user
+        return form
+
+    def get_success_url(self):
+        return reverse('crowdTell:upload_picture')
+
+
 def respond_to_question(request):
     try:
         question_id = request.GET['question_id']
@@ -40,3 +55,8 @@ def landing(request):
 def submit_vote_result(request):
     vote_result = request.POST['vote_result']
     return render(request, 'crowdTell/submit_vote_view.html', {'vote_result': vote_result})
+
+
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, request, user):
+        return reverse('crowdTell:create_person',)
