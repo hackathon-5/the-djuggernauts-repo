@@ -9,6 +9,7 @@ from django.views.generic import CreateView, DetailView
 from registration.backends.simple.views import RegistrationView
 from .forms import *
 from .models import *
+from django.db.models import Q
 
 
 class PictureQuestionDetailView(DetailView):
@@ -75,6 +76,18 @@ class AnswerCreateView(CreateView):
         form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
         form.instance.picture_question = self.picture_question
         return form
+
+
+def search(request):
+    return render(request, 'crowdTell/search_view.html')
+
+
+def search_results(request):
+    print 'i am fucking here'
+    search_criteria = request.POST['name_search']
+    results = Person.objects.filter(Q(first_name__icontains=search_criteria) | Q(last_name__icontains=search_criteria))
+    print results
+    return render(request, 'crowdTell/search_results_view.html', {'results': results})
 
 
 def landing(request):

@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^person/(?P<pk>\d+)/', PersonDetailView.as_view(), name="person_detail"),
     url(r'person_bootstrapped/', bootstrapped_person_view, name="bootstrapped_person"),
     url(r'^create_person/', PersonCreateView.as_view(), name='create_person'),
+    url(r'^search/', search, name='search'),
+    url(r'^search_results/', search_results, name='search_results'),
     url(r'^add_friend', add_friend, name='add_friend'),
     url(r'^$', landing, name='landing'),
 ]
