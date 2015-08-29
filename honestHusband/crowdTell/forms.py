@@ -17,10 +17,7 @@ class PictureQuestionForm(ModelForm):
 
 class AnswerForm(ModelForm):
 
-    vote = forms.TypedChoiceField(coerce=lambda x: bool(int(x)),
-                   choices=((0, 'Your ass is fat :('), (1, 'Niiiiiiceee')),
-                   widget=forms.RadioSelect, label=''
-                )
+    vote = forms.BooleanField(widget=forms.HiddenInput(), required=False)
     comment = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Answer

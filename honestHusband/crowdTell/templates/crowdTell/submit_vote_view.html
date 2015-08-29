@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block content %}
-    {% thumbnail picture_question.image "300x300" crop="center" as im %}
-        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
+        <img src="{{ picture_question.image.url }}" width="300" height="300">
     <br />
-    Rating: {{ question.get_yes_pct }}%
+    Rating: {{ picture_question.get_yes_pct }}%
     <br />
-    {{ question.get_total_votes }} Votes
+    {{ picture_question.get_total_votes }} Votes
 
 {% endblock content %}

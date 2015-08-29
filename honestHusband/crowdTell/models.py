@@ -30,7 +30,7 @@ class PictureQuestion(models.Model):
 
     @property
     def get_total_votes(self):
-        return Answer.objects.filter(question__id=self.id).count()
+        return Answer.objects.filter(picture_question__id=self.id).count()
 
     @property
     def get_yes_pct(self):
@@ -53,7 +53,7 @@ class Answer(models.Model):
     comment = models.TextField()
 
     def get_absolute_url(self):
-        return reverse('crowdTell:submit_vote_result', args=(self.question.id,))
+        return reverse('crowdTell:submit_vote_result', args=(self.picture_question.id,))
 
     def __unicode__(self):
         return u'%s on %s with %s' % (self.person, self.question, self.vote)
