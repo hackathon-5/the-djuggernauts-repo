@@ -62,7 +62,7 @@ class MyRegistrationView(RegistrationView):
         return reverse('crowdTell:create_person',)
     
     
-    def find_friends(request):
+def find_friends(request):
     return render(request, 'crowdTell/find_friends_view.html', {})
 
 
