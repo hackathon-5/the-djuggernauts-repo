@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script type="text/javascript">
+        function submitVote(e) {
+            document.getElementById("vote_result").value = e.value;
+            document.forms["vote_form"].submit();
+        }
+    </script>
+    <h1>{{ question.title }}</h1>
+    <form id='vote_form' action="." method="post">
+        <input type="hidden" id="vote_result" name="vote_result"/>
+        {% csrf_token %}
+        {{ form }}
+    </form>
+    <br/>
+    <button onclick="submitVote(this)" value="false">No</button><button onclick="submitVote(this)" value="true">Yes</button>
+{% endblock content %}

@@ -1,6 +1,8 @@
 from random import randrange
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
 from django.views.generic import CreateView, DetailView
@@ -42,8 +44,8 @@ class PersonCreateView(CreateView):
 
 
 class AnswerCreateView(CreateView):
-    model = Answer
-    fields = ['vote', 'comment']
+    form_class = AnswerForm
+    template_name = 'crowdTell/answer_create_view.html'
 
     def dispatch(self, request, *args, **kwargs):
         self.question = get_object_or_404(Question, pk=kwargs['question_id'])
@@ -58,6 +60,10 @@ class AnswerCreateView(CreateView):
         form = super(AnswerCreateView, self).get_form()
         form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
         form.instance.question = self.question
+        return form
+
+    def get_success_url(self):
+        return reverse('crowdTell:submit_vote_result')
 
 
 
