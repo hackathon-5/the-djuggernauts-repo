@@ -16,10 +16,12 @@ class PictureQuestionForm(Form):
 
 
 class AnswerForm(ModelForm):
+
     vote = forms.TypedChoiceField(coerce=lambda x: bool(int(x)),
                    choices=((0, 'Your ass is fat :('), (1, 'Niiiiiiceee')),
-                   widget=forms.RadioSelect
+                   widget=forms.RadioSelect, label=''
                 )
+    comment = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Answer
         fields = ['vote', 'comment']

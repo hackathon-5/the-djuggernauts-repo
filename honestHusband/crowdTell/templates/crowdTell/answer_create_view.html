@@ -3,9 +3,13 @@
 {% block content %}
     <h1>{{ question.title }}</h1>
     <form action="." method="post">
-        <input type="hidden" id="vote_result" name="vote_result"/>
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Send Insult"/>
+        <p>
+            <input type="hidden" id="vote_result" name="vote_result"/>
+            {% csrf_token %}
+            {{ form }}
+        </p>
+        <p>
+            <input type="submit" value="Send Insult" class="btn btn-default btn-large"/>
+        </p>
     </form>
 {% endblock content %}
