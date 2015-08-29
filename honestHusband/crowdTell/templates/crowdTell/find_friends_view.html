@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Search for Friends</h1>
+    <form action="{% url 'crowdTell:search_for_friends' %}" method="post">{% csrf_token %}
+        <label for="username">Friend's Username</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="Search"/>
+    </form>
+{% endblock content %}

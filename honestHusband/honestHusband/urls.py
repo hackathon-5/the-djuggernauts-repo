@@ -18,10 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from crowdTell import views
+from crowdTell.views import MyRegistrationView
 from honestHusband import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('crowdTell.urls', namespace='crowdTell')),
-    url(r'^respondToQuestion/', views.respond_to_question, name='respond_to_question'),
+    url(r'^accounts/register/', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/logout/', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^', include('crowdTell.urls', namespace='crowdTell'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
