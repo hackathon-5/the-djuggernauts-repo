@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="/vote-result/" method="post">
+    <script type="text/javascript">
+        function submitVote(e) {
+            document.getElementById("vote_result").value = e.value;
+            document.forms["vote_form"].submit();
+        }
+    </script>
+    <form id="vote_form" action="{% url 'submit_vote_result' %}t" method="post">{% csrf_token %}
         <h1>{{ question.title }}</h1>
+        <input type="hidden" id="vote_result" name="vote_result"/>
         <img src="{{ question.picture.image.url }}"/>
-        <button onclick="someFunc()">No</button><button onclick="someFunc()">Yes</button>
     </form>
+    <br/>
+    <button onclick="submitVote(this)" value="false">No</button><button onclick="submitVote(this)" value="true">Yes</button>
 {% endblock content %}
