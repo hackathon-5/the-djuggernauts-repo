@@ -6,9 +6,16 @@ from django.db import models
 # Create your models here.
 class Person(models.Model):
     user = models.ForeignKey(User)
-    friend = models.ForeignKey("self")
+    friends = models.ManyToManyField('self', symmetrical=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+
+    @property
+    def questions(self):
+        return Question.objects.filter(picture__person__id=self.id)
+
+    def get_absolute_url(self):
+        return reverse('crowdTell:person_detail', args=(self.id,))
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)

@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, FormView
 from registration.backends.simple.views import RegistrationView
 from .forms import *
 from .models import *
@@ -17,17 +17,27 @@ class PictureDetailView(DetailView):
     template_name = 'crowdTell/picture_detail_view.html'
 
 
-class PictureCreateView(CreateView):
-    form_class = PictureForm
+class PictureQuestionCreateView(FormView):
+    form_class = PictureQuestionForm
     template_name = 'crowdTell/picture_create_view.html'
 
     def get_form(self, form_class=form_class):
         person = get_object_or_404(Person, user__id=self.request.user.id)
-        form = super(PictureCreateView, self).get_form(form_class)
+        form = super(PictureQuestionCreateView, self).get_form(form_class)
         form.instance.person = person
         form.label = ''
         return form
 
+
+class PersonDetailView(DetailView):
+    model = Person
+    context_object_name = 'person'
+    template_name = 'crowdTell/person_detail_view.html'
+
+
+def bootstrapped_person_view(request):
+    person = get_object_or_404(Person, user__id=request.user.id)
+    return HttpResponseRedirect(reverse('crowdTell:person_detail', args=(person.id,)))
 
 class PersonCreateView(CreateView):
     model = Person
@@ -76,16 +86,8 @@ def submit_vote_result(request, *args, **kwargs):
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
         return reverse('crowdTell:create_person',)
-    
-    
-def find_friends(request):
-    return render(request, 'crowdTell/find_friends_view.html', {})
 
 
-def search_for_friends(request):
-    friend_username = request.POST['username']
-    friend_result = Person.objects.get(user__username=friend_username)
-    return render(request, 'crowdTell/search_for_friends_view.html', {'friend_username': friend_result})
 
 def answer_random_question(request):
     number_of_questions = Question.objects.all().count()
