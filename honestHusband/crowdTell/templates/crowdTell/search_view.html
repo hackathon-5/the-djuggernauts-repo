@@ -5,7 +5,7 @@
     <form action="{% url 'crowdTell:search_results' %}" method="post">
         {% csrf_token %}
         <label for="name_search">Name</label>
-        <input type="text" id="name_search" name="name_search"/>
+        <input type="text" id="name_search" required="true" name="name_search"/>
         <input type="submit" value="Search"/>
     </form>
 {% endblock content %}

@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block content %}
-    {% for person in results %}
-        <a href="{% url 'crowdTell:person_detail' person.id %}">{{ person.first_name }} {{ person.last_name }}</a>
-    {% endfor %}
+    {% if results|length > 0 %}
+        {% for person in results %}
+            <a href="{% url 'crowdTell:person_detail' person.id %}">{{ person.first_name }} {{ person.last_name }}</a>
+            <br />
+        {% endfor %}
+    {% else %}
+        No Results
+    {% endif %}
 {% endblock content %}

@@ -37,7 +37,10 @@ class PictureQuestion(models.Model):
         yes_answers = Answer.objects.filter(picture_question__id=self.id, vote=True).count()
         total_answers = self.get_total_votes
 
-        return round(yes_answers / total_answers * 100, 2)
+        if total_answers >= 1:
+            return round(yes_answers / total_answers * 100, 2)
+        else:
+            return 0
 
     def get_absolute_url(self):
         return reverse('crowdTell:picture_detail', args=(self.id,))
