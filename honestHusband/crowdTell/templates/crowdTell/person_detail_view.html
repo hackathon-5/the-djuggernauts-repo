@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% block content %}
         <h1>{{person.first_name}} {{person.last_name}}'s profile</h1>
-        {% for question in person.questions %}
-            <p>{{question.title}}</p>
+        {% for picture_question in person.picture_questions %}
+        <div class="well">
+            <h2>{{picture_question.title}}</h2>
+            {% thumbnail picture_question.image "300x300" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            {% endthumbnail %}
+            <h4>{{picture_question.text}}</h4>
+        </div>
         {% endfor %}
 {% endblock content %}

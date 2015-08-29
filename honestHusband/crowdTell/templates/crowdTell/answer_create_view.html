@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-
+{% load thumbnail %}
 {% block content %}
-    <h1>{{ question.title }}</h1>
-    <img src="{{ question.image.url }}" />
+    <h1>{{ picture_question.title }}</h1>
+    {% thumbnail picture_question.image "300x300" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    {% endthumbnail %}
     <form action="." method="post">
         <p>
             <input type="hidden" id="vote_result" name="vote_result"/>
