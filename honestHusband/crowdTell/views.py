@@ -1,3 +1,5 @@
+from random import randrange
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -81,3 +83,8 @@ def search_for_friends(request):
     friend_username = request.POST['username']
     friend_result = Person.objects.get(user__username=friend_username)
     return render(request, 'crowdTell/search_for_friends_view.html', {'friend_username': friend_result})
+
+def answer_random_question(request):
+    number_of_questions = Question.objects.all().count()
+    question_id = randrange(1, number_of_questions + 1)
+    return HttpResponseRedirect(reverse('crowdTell:answer_question', args=(question_id,)))
