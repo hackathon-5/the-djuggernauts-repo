@@ -7,7 +7,7 @@
             document.forms["vote_form"].submit();
         }
     </script>
-    <form id="vote_form" action="{% url 'submit_vote_result' %}t" method="post">{% csrf_token %}
+    <form id="vote_form" action="{% url 'crowdTell:submit_vote_result' %}" method="post">{% csrf_token %}
         <h1>{{ question.title }}</h1>
         <input type="hidden" id="vote_result" name="vote_result"/>
         <img src="{{ question.picture.image.url }}"/>
