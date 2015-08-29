@@ -4,10 +4,10 @@
     <div style="margin-top:40px;"></div>
     {% if results|length > 0 %}
         {% for person in results %}
-            <a href="{% url 'crowdTell:person_detail' person.id %}">{{ person.first_name }} {{ person.last_name }}</a>
+            <a href="{% url 'crowdTell:person_detail' person.id %}"><h3>{{ person.first_name }} {{ person.last_name }}</h3></a>
             <br />
         {% endfor %}
     {% else %}
-        No Results
+        <h3>No Results</h3>
     {% endif %}
 {% endblock content %}
