@@ -1,3 +1,4 @@
+from __future__ import division
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -31,6 +32,9 @@ class Answer(models.Model):
     vote = models.BooleanField()
     comment = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse('crowdTell:submit_vote_result', args=(self.question.id,))
+
     def __unicode__(self):
         return u'%s on %s with %s' % (self.person, self.question, self.vote)
 
@@ -39,6 +43,14 @@ class Question(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     picture = models.ForeignKey(Picture)
+
+    @property
+    def get_yes_pct(self):
+        yes_answers = Answer.objects.filter(question__id=self.id, vote=True).count()
+        total_answers = Answer.objects.filter(question__id=self.id).count()
+
+        return yes_answers / total_answers
+
 
     @property
     def person(self):

@@ -23,5 +23,4 @@ class AnswerForm(ModelForm):
                 )
     class Meta:
         model = Answer
-        model = Answer
         fields = ['vote', 'comment']

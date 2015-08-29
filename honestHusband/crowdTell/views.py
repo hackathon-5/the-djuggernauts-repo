@@ -62,18 +62,15 @@ class AnswerCreateView(CreateView):
         form.instance.question = self.question
         return form
 
-    def get_success_url(self):
-        return reverse('crowdTell:submit_vote_result')
-
 
 
 def landing(request):
     return render(request, 'crowdTell/landing.html', {})
 
 
-def submit_vote_result(request):
-    vote_result = request.POST['vote_result']
-    return render(request, 'crowdTell/submit_vote_view.html', {'vote_result': vote_result})
+def submit_vote_result(request, *args, **kwargs):
+    question = get_object_or_404(Question, pk=kwargs['question_id'])
+    return render(request, 'crowdTell/submit_vote_view.html', {'question': question})
 
 
 class MyRegistrationView(RegistrationView):
