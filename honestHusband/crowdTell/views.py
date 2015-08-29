@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.views.generic import CreateView, DetailView
+from .forms import *
 from .models import *
 
 
@@ -12,13 +13,12 @@ class PictureDetailView(DetailView):
 
 
 class PictureCreateView(CreateView):
-    model = Picture
-    fields = ['image']
+    form_class = PictureForm
     template_name = 'crowdTell/picture_create_view.html'
 
-    def get_form(self, form_class=None):
+    def get_form(self, form_class=form_class):
         person = get_object_or_404(Person, user__id=self.request.user.id)
-        form = super(PictureCreateView, self).get_form()
+        form = super(PictureCreateView, self).get_form(form_class)
         form.instance.person = person
         return form
 
