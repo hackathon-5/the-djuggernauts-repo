@@ -26,5 +26,11 @@ def respond_to_question(request):
     random_question = Question.objects.order_by('?').first()
     return render(request, 'crowdTell/picture_vote_view.html', {'question': random_question})
 
+
 def landing(request):
     return render(request, 'crowdTell/landing.html', {})
+
+
+def submit_vote_result(request):
+    vote_result = ""
+    return render(request, 'crowdTell/submit_vote_view.html', {'vote_result': vote_result})
