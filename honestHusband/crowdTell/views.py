@@ -1,14 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .models import *
+
+
+class PictureDetailView(DetailView):
+    model = Picture
+    template_name = 'crowdTell/picture_detail_view.html'
 
 
 class PictureCreateView(CreateView):
     model = Picture
     fields = ['image']
     template_name = 'crowdTell/picture_create_view.html'
+
+    def get_form(self, form_class=None):
+        person = get_object_or_404(Person, user__id=self.request.user.id)
+        form = super(PictureCreateView, self).get_form()
+        form.instance.person = person
+        return form
 
 
 def respond_to_question(request):
