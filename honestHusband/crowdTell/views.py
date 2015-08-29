@@ -14,3 +14,6 @@ class PictureCreateView(CreateView):
 def respond_to_question(request):
     random_question = Question.objects.order_by('?').first()
     return render(request, 'crowdTell/picture_vote_view.html', {'question': random_question})
+
+def landing(request):
+    return render(request, 'crowdTell/landing.html', {})
