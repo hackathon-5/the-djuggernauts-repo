@@ -24,7 +24,12 @@ class PictureCreateView(CreateView):
 
 
 def respond_to_question(request):
-    random_question = Question.objects.order_by('?').first()
+    try:
+        question_id = request.GET['question_id']
+        random_question = Question.objects.get(pk=question_id)
+    except:
+        random_question = Question.objects.order_by('?').first()
+
     return render(request, 'crowdTell/picture_vote_view.html', {'question': random_question})
 
 
@@ -33,5 +38,5 @@ def landing(request):
 
 
 def submit_vote_result(request):
-    vote_result = ""
+    vote_result = request.POST['vote_result']
     return render(request, 'crowdTell/submit_vote_view.html', {'vote_result': vote_result})
