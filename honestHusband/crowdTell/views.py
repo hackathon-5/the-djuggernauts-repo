@@ -67,7 +67,7 @@ class AnswerCreateView(CreateView):
     def get_form(self, form_class=None):
         form = super(AnswerCreateView, self).get_form()
         form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
-        form.instance.question = self.picture_question
+        form.instance.picture_question = self.picture_question
         return form
 
 
