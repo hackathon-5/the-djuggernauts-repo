@@ -4,10 +4,10 @@ from django.forms import ModelForm, Form, FileField, CharField, Textarea
 from .models import *
 
 
-class PictureQuestionForm(Form):
-    title = CharField()
-    image = FileField()
-    text = CharField(widget=Textarea)
+class PictureQuestionForm(ModelForm):
+    class Meta:
+        model = PictureQuestion
+        fields = ['title', 'text', 'image']
 
     def __init__(self, *args, **kwargs):
         super(PictureQuestionForm, self).__init__(*args, **kwargs)

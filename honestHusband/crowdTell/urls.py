@@ -3,7 +3,7 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    url(r'^photo/(?P<pk>\d+)/', PictureDetailView.as_view(), name="picture_detail"),
+    url(r'^photo/(?P<pk>\d+)/', PictureQuestionDetailView.as_view(), name="picture_detail"),
     url(r'^upload_picture/', PictureQuestionCreateView.as_view(), name="upload_picture"),
     url(r'^answer_question/(?P<question_id>\d+)/', AnswerCreateView.as_view(), name='answer_question'),
     url(r'^answer_random_question', answer_random_question, name='answer_random_question'),

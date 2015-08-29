@@ -12,14 +12,9 @@ class AnswerInlineAdmin(admin.TabularInline):
     extra = 1
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    inlines = [AnswerInlineAdmin]
-
-
-class PictureAdmin(admin.ModelAdmin):
+class PictureQuestionAdmin(admin.ModelAdmin):
     pass
 
 
 admin.site.register(Person, PersonAdmin)
-admin.site.register(Question, QuestionAdmin)
-admin.site.register(Picture, PictureAdmin)
+admin.site.register(PictureQuestion, PictureQuestionAdmin)
