@@ -11,7 +11,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=50)
 
     @property
-    def questions(self):
+    def picture_questions(self):
         return PictureQuestion.objects.filter(person__id=self.id)
 
     def get_absolute_url(self):

@@ -56,18 +56,18 @@ class AnswerCreateView(CreateView):
     template_name = 'crowdTell/answer_create_view.html'
 
     def dispatch(self, request, *args, **kwargs):
-        self.question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
+        self.picture_question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
         return super(AnswerCreateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context_data = super(AnswerCreateView, self).get_context_data(**kwargs)
-        context_data['question'] = self.question
+        context_data['picture_question'] = self.picture_question
         return context_data
 
     def get_form(self, form_class=None):
         form = super(AnswerCreateView, self).get_form()
         form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
-        form.instance.question = self.question
+        form.instance.question = self.picture_question
         return form
 
 
@@ -76,8 +76,8 @@ def landing(request):
 
 
 def submit_vote_result(request, *args, **kwargs):
-    question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
-    return render(request, 'crowdTell/submit_vote_view.html', {'question': question})
+    picture_question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
+    return render(request, 'crowdTell/submit_vote_view.html', {'picture_question': picture_question})
 
 
 class MyRegistrationView(RegistrationView):
