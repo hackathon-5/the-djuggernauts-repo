@@ -6,9 +6,7 @@
         {% for picture_question in person.picture_questions %}
         <div class="well">
             <h2>{{picture_question.title}}</h2>
-            {% thumbnail picture_question.image "300x300" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-            {% endthumbnail %}
             <h4>{{picture_question.text}}</h4>
         </div>
         {% endfor %}
