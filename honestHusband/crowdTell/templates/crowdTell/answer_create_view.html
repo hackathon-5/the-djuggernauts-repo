@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block content %}
+    <script type="text/javascript">
+        function submit_form(vote) {
+            document.getElementById("vote_result").value = vote;
+            document.forms["answer_form"].submit();
+        }
+    </script>
     <h1>{{ picture_question.title }}</h1>
-    {% thumbnail picture_question.image "300x300" crop="center" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
-    <form action="." method="post">
+    <form id="answer_form" action="." method="post">
         <p>
             <input type="hidden" id="vote_result" name="vote_result"/>
             {% csrf_token %}
             {{ form }}
         </p>
-        <p>
-            <input type="submit" value="Answer" class="btn btn-default btn-large"/>
-        </p>
     </form>
+    <img src="some/thumbs/down" onclick="submit_form(false)"/><img src="some/thumbs/up" onclick="submit_form(true)"/>
 {% endblock content %}

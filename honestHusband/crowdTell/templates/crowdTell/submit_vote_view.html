@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
 {% block content %}
-    {% thumbnail picture_question.image "300x300" crop="center" as im %}
         <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-    {% endthumbnail %}
     <br />
     Rating: {{ question.get_yes_pct }}%
     <br />
