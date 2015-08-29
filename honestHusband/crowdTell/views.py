@@ -7,6 +7,7 @@ from .models import *
 
 class PictureDetailView(DetailView):
     model = Picture
+    context_object_name = 'picture'
     template_name = 'crowdTell/picture_detail_view.html'
 
 
