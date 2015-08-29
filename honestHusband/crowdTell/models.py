@@ -29,11 +29,15 @@ class PictureQuestion(models.Model):
     upload_time = models.DateTimeField(auto_now_add=True)
 
     @property
-    def get_yes_pct(self):
-        yes_answers = Answer.objects.filter(question__id=self.id, vote=True).count()
-        total_answers = Answer.objects.filter(question__id=self.id).count()
+    def get_total_votes(self):
+        return Answer.objects.filter(question__id=self.id).count()
 
-        return yes_answers / total_answers
+    @property
+    def get_yes_pct(self):
+        yes_answers = Answer.objects.filter(picture_question__id=self.id, vote=True).count()
+        total_answers = self.get_total_votes
+
+        return round(yes_answers / total_answers * 100, 2)
 
     def get_absolute_url(self):
         return reverse('crowdTell:picture_detail', args=(self.id,))
@@ -53,3 +57,4 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return u'%s on %s with %s' % (self.person, self.question, self.vote)
+
