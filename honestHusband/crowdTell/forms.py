@@ -1,17 +1,16 @@
 from django import forms
-
-from django.forms import ModelForm
+from django.forms import ModelForm, Form, FileField, CharField, Textarea
 
 from .models import *
 
 
-class PictureForm(ModelForm):
-    class Meta:
-        model = Picture
-        fields = ['image']
+class PictureQuestionForm(Form):
+    title = CharField()
+    image = FileField()
+    text = CharField(widget=Textarea)
 
     def __init__(self, *args, **kwargs):
-        super(PictureForm, self).__init__(*args, **kwargs)
+        super(PictureQuestionForm, self).__init__(*args, **kwargs)
         self.fields['image'].widget.attrs.update({'accept': 'image/*', 'capture': 'camera'})
         self.fields['image'].label = ''
 
@@ -22,6 +21,5 @@ class AnswerForm(ModelForm):
                    widget=forms.RadioSelect
                 )
     class Meta:
-        model = Answer
         model = Answer
         fields = ['vote', 'comment']
