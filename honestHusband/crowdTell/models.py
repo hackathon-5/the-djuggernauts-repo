@@ -45,11 +45,15 @@ class Question(models.Model):
     picture = models.ForeignKey(Picture)
 
     @property
+    def get_total_votes(self):
+        return Answer.objects.filter(question__id=self.id).count()
+
+    @property
     def get_yes_pct(self):
         yes_answers = Answer.objects.filter(question__id=self.id, vote=True).count()
-        total_answers = Answer.objects.filter(question__id=self.id).count()
+        total_answers = self.get_total_votes
 
-        return yes_answers / total_answers
+        return round(yes_answers / total_answers * 100, 2)
 
 
     @property

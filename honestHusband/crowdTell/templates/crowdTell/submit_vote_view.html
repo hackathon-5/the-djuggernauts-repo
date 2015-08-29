@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {{ question.get_yes_pct }}
+    <img src="{{ question.picture.image.url }}"/>
+    <br />
+    Rating: {{ question.get_yes_pct }}%
+    <br />
+    {{ question.get_total_votes }} Votes
+
 {% endblock content %}
