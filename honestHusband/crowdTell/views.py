@@ -11,21 +11,19 @@ from .forms import *
 from .models import *
 
 
-class PictureDetailView(DetailView):
-    model = Picture
+class PictureQuestionDetailView(DetailView):
+    model = PictureQuestion
     context_object_name = 'picture'
     template_name = 'crowdTell/picture_detail_view.html'
 
 
-class PictureQuestionCreateView(FormView):
+class PictureQuestionCreateView(CreateView):
     form_class = PictureQuestionForm
     template_name = 'crowdTell/picture_create_view.html'
 
     def get_form(self, form_class=form_class):
-        person = get_object_or_404(Person, user__id=self.request.user.id)
         form = super(PictureQuestionCreateView, self).get_form(form_class)
-        form.instance.person = person
-        form.label = ''
+        form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
         return form
 
 
@@ -58,7 +56,7 @@ class AnswerCreateView(CreateView):
     template_name = 'crowdTell/answer_create_view.html'
 
     def dispatch(self, request, *args, **kwargs):
-        self.question = get_object_or_404(Question, pk=kwargs['question_id'])
+        self.question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
         return super(AnswerCreateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -79,7 +77,7 @@ def landing(request):
 
 
 def submit_vote_result(request, *args, **kwargs):
-    question = get_object_or_404(Question, pk=kwargs['question_id'])
+    question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
     return render(request, 'crowdTell/submit_vote_view.html', {'question': question})
 
 
@@ -90,6 +88,6 @@ class MyRegistrationView(RegistrationView):
 
 
 def answer_random_question(request):
-    number_of_questions = Question.objects.all().count()
+    number_of_questions = PictureQuestion.objects.all().count()
     question_id = randrange(1, number_of_questions + 1)
     return HttpResponseRedirect(reverse('crowdTell:answer_question', args=(question_id,)))
