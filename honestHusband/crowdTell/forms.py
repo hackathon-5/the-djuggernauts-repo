@@ -12,7 +12,6 @@ class PictureQuestionForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(PictureQuestionForm, self).__init__(*args, **kwargs)
         self.fields['image'].widget.attrs.update({'accept': 'image/*', 'capture': 'camera'})
-        self.fields['image'].label = ''
 
 
 class AnswerForm(ModelForm):
