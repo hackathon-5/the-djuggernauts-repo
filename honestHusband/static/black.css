@@ -1,3 +1,4 @@
+
 /* Links */
 a,
 a:focus,
@@ -32,7 +33,7 @@ body {
 }
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 
-.container {
+.content {
     display: table;
     width: 100%;
     height: 100%;
@@ -41,6 +42,7 @@ body {
     min-height: 100%;
     -webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
     box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+    padding-top: 40px;
 }
 .site-wrapper-inner {
     display: table-cell;
@@ -156,4 +158,8 @@ body {
     .cover-container {
         width: 700px;
     }
+}
+
+.navbar {
+    margin-bottom: 30;
 }
