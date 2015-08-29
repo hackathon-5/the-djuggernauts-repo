@@ -23,5 +23,5 @@ from honestHusband import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('crowdTell.urls', namespace='crowdTell')),
-    url(r'^respondToQuestion/', views.respond_to_question, name='respond_to_question'),
+    url(r'^register/', include('registration.backends.default.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
