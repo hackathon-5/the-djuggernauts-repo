@@ -3,8 +3,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#id_vote").hide();
+            $("#id_vote").parent().hide();
+        });
+
         function submit_form(vote) {
-            document.getElementById("id_vote").value = vote;
+            document.getElementById("id_vote").checked = vote;
             document.forms["answer_form"].submit();
         }
     </script>
