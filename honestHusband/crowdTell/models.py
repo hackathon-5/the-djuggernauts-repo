@@ -59,5 +59,5 @@ class Answer(models.Model):
         return reverse('crowdTell:submit_vote_result', args=(self.picture_question.id,))
 
     def __unicode__(self):
-        return u'%s on %s with %s' % (self.person, self.question, self.vote)
+        return u'%s on %s with %s' % (self.person, self.picture_question, self.vote)
 
