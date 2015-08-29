@@ -64,6 +64,9 @@ class AnswerCreateView(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.picture_question = get_object_or_404(PictureQuestion, pk=kwargs['question_id'])
+        if request.user.id == self.picture_question.person.user.id:
+            return HttpResponseRedirect(reverse("crowdTell:submit_vote_result", args=(self.picture_question.id,)))
+
         return super(AnswerCreateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

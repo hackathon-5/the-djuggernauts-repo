@@ -16,7 +16,7 @@ class PictureQuestionForm(ModelForm):
 
 class AnswerForm(ModelForm):
 
-    vote = forms.BooleanField(widget=forms.HiddenInput(), required=False)
+    vote = forms.BooleanField()
     comment = forms.CharField(widget=forms.Textarea, label='')
     class Meta:
         model = Answer

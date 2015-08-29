@@ -23,8 +23,8 @@ class Person(models.Model):
 
 class PictureQuestion(models.Model):
     person = models.ForeignKey(Person)
-    title = models.CharField(max_length=100)
-    text = models.TextField()
+    title = models.CharField(max_length=100, verbose_name='Question')
+    text = models.TextField(verbose_name='Supplementary Details')
     image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
     upload_time = models.DateTimeField(auto_now_add=True)
 
@@ -43,7 +43,7 @@ class PictureQuestion(models.Model):
             return 0
 
     def get_absolute_url(self):
-        return reverse('crowdTell:picture_detail', args=(self.id,))
+        return reverse('crowdTell:submit_vote_result', args=(self.id,))
 
     def __unicode__(self):
         return u'picture by %s' % self.person
@@ -59,5 +59,5 @@ class Answer(models.Model):
         return reverse('crowdTell:submit_vote_result', args=(self.picture_question.id,))
 
     def __unicode__(self):
-        return u'%s on %s with %s' % (self.person, self.question, self.vote)
+        return u'%s on %s with %s' % (self.person, self.picture_question, self.vote)
 

@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
-{% load thumbnail %}
-{% block content %}
-        <img src="{{ picture_question.image.url }}" width="300" height="300">
-    <br />
-    Rating: {{ picture_question.get_yes_pct }}%
-    <br />
-    {{ picture_question.get_total_votes }} Votes
 
+{% block content %}
+    <div>
+        <h1>{{ picture_question.title }}</h1>
+        <img src="{{ picture_question.image.url }}" width="300" height="300">
+        <br />
+        Rating: {{ picture_question.get_yes_pct }}%
+        <br />
+        {{ picture_question.get_total_votes }} Votes
+    </div>
 {% endblock content %}
