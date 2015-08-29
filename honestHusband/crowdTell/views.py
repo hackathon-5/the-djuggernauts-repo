@@ -39,14 +39,24 @@ class PersonCreateView(CreateView):
         return reverse('crowdTell:upload_picture')
 
 
-def respond_to_question(request):
-    try:
-        question_id = request.GET['question_id']
-        random_question = Question.objects.get(pk=question_id)
-    except:
-        random_question = Question.objects.order_by('?').first()
+class AnswerCreateView(CreateView):
+    model = Answer
+    fields = ['vote', 'comment']
 
-    return render(request, 'crowdTell/picture_vote_view.html', {'question': random_question})
+    def dispatch(self, request, *args, **kwargs):
+        self.question = get_object_or_404(Question, pk=kwargs['question_id'])
+        return super(AnswerCreateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context_data = super(AnswerCreateView, self).get_context_data(**kwargs)
+        context_data['question'] = self.question
+        return context_data
+
+    def get_form(self, form_class=None):
+        form = super(AnswerCreateView, self).get_form()
+        form.instance.person = get_object_or_404(Person, user__id=self.request.user.id)
+        form.instance.question = self.question
+
 
 
 def landing(request):
