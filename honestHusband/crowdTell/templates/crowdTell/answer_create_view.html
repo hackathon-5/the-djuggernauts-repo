@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>{{ question.title }}</h1>
-    <form> id='vote_form' action="." method="post">
+    <form action="." method="post">
         <input type="hidden" id="vote_result" name="vote_result"/>
         {% csrf_token %}
         {{ form }}
