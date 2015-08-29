@@ -40,3 +40,13 @@ def landing(request):
 def submit_vote_result(request):
     vote_result = request.POST['vote_result']
     return render(request, 'crowdTell/submit_vote_view.html', {'vote_result': vote_result})
+
+
+def find_friends(request):
+    return render(request, 'crowdTell/find_friends_view.html', {})
+
+
+def search_for_friends(request):
+    friend_username = request.POST['username']
+    friend_result = Person.objects.get(user__username=friend_username)
+    return render(request, 'crowdTell/search_for_friends_view.html', {'friend_username': friend_result})
